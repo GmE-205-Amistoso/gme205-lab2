@@ -1,4 +1,85 @@
 import math as Math
+import pandas as pd
+
+# ----------------------
+# File paths
+# ----------------------
+
+class PointSet:
+    def __init__(self, points=None):
+        # Initialize the PointSet with a list of Point objects or an empty list if no data is in CSV.
+        self.points = points or []
+
+    # ---------------------------------------------------------------------------
+    # Instance methods
+    # ---------------------------------------------------------------------------
+    def count(self):
+        return len(self.points)
+
+    def bbox(self) -> tuple[float, float, float, float] | None:
+        """
+        Calculate the bounding box of the points.
+        Returns a tuple of (min_lon, min_lat, max_lon, max_lat).
+        """
+        if not self.points:
+            return None
+
+        min_lon = min(point.lon for point in self.points)
+        max_lon = max(point.lon for point in self.points)
+        min_lat = min(point.lat for point in self.points)
+        max_lat = max(point.lat for point in self.points)
+
+        return (min_lon, min_lat, max_lon, max_lat)
+
+    def filter_by_tag(self, tag):
+        filtered_points = []
+
+        # Check individual points for the tag
+        for point in self.points:
+            if point.tag == tag:
+                filtered_points.append(point)   # Add matching point to the filtered list
+
+        return PointSet(filtered_points)
+
+    # ---------------------------------------------------------------------------
+    # Class methods
+    # ---------------------------------------------------------------------------
+
+    @classmethod
+    def from_csv(cls, csv_file):
+        points = []
+
+        # Read the CSV file into df
+        print(f"Reading points from {csv_file}...")
+        try:
+            df = pd.read_csv(csv_file)
+        except FileNotFoundError:
+            print(f"Error: The file {csv_file} was not found.")
+            print("Please ensure the file \"points.csv\" exists in the specified path.")
+            exit(1)
+
+
+        print(f"Parsing {len(df)} rows from the CSV file...")
+        missing_values = df.isnull().sum()
+
+        # Check for missing values in CSV
+        if missing_values.any():
+            print("Missing values per column:")
+            print(missing_values)
+        else:
+            print("No missing values detected.")
+
+        # Parse each row in CSV into a Point object
+        for index, row in df.iterrows():
+            try:
+                point = Point.from_row(row)     # Create a Point object using the class method from_row
+                points.append(point)
+                #print(f"Added Point: {point.id}, Lon: {point.lon}, Lat: {point.lat}")
+            except ValueError as e:
+                print(f"Skipping row due to missing or invalid data.")
+
+        return cls(points)  # Initialize the PointSet object
+        
 
 class Point:
     def __init__(self, id, lon, lat, name=None, tag=None):
