@@ -26,23 +26,23 @@ Before starting, make sure that you have installed the following dependencies:
 ## Reflections
 ### 1. Object vs Geometry
 #### *How did modeling points as objects change the way you thought about the data compared to treating them as rows in a table?*
-```
+
 Instead of viewing a point as just an X and Y column in a spreadsheet, the Point object became a self-contained unit responsible for validating its own coordinates and executing spatial operations like distance calculations. Similarly, instead of viewing a dataset as just a passive shapefile layer, the PointSet object became a "manager" capable of controlling how a set of points interact. This shifted my thinking from "what database operations do I run on this table?" to "what capabilities should this spatial object possess?"
-```
+
 
 ### 2. Responsibility
 #### *Which behaviors belonged in Point, which belonged in PointSet, and which belonged in the runner script? Give one concrete example.*
-```
+
 For the Point object, an example behavior is calculating the distance from itself to another point. For PointSet, it is calculating the bounding box. For the runner script, it is the generation of outputs (scatter plots and data dictionaries).
 
 In this setup, each component only owns the logic that belongs to it. The Point class owns the distance calculation since this only requires knowledge about individual coordinate pairs, which is an intrinsic property of points. The PointSet class owns the bounding box calculation because individual points are unaware of the existence of other points. Finally, the runner script owns output generation so that non-spatial operations remain decoupled from the core spatial objects.
-```
+
 
 ### 3. Modeling Insight
 #### *How did separating geometry, meaning, and behavior make the spatial logic easier (or harder) to understand?*
-```
+
 Separating geometry and behavior made the overall spatial logic much easier to understand and debug, despite adding initial setup complexity. In a flat GIS attribute table, coordinates and metadata are lumped together, and calculations depend entirely on external software tools. By separating them, the logic became modular. In this case, the Point class handles coordinate math, PointSet manages collection boundaries, and the runner script handles visualization.
-```
+
 
 ## 👤 Author
 **ALLAN FRITZGERALD N. AMISTOSO** <br>
