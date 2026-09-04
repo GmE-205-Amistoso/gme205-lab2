@@ -6,7 +6,44 @@ Before starting, make sure that you have installed the following dependencies:
 - **[Python](https://www.python.org/downloads/) >= 3.14**
 - **[pip](https://pip.pypa.io/en/stable/installation/) >= 26.2.1**
 
-## Directory Structure
+# Set up the Virtual Environment
+
+## Create a Python Virtual Environment
+Create a Python virtual env (venv):
+
+```
+python3 -m venv .venv
+```
+
+Run the virtual environment:
+```
+source .venv/bin/activate
+```
+
+## Install pandas and matplotlib
+Upgrade pip and install libraries.
+
+```
+# Update and upgrade pip version
+pip install --upgrade pip
+# Install pandas and matplotlib
+pip install pandas matplotlib
+```
+
+Save the installed packages.
+
+```
+pip freeze > requirements.txt
+```
+
+## How to run Python scripts
+Run the runner script using the following command:
+
+```
+python3 src/run_lab2.py
+```
+
+# Directory Structure
 ```
 ├── data                    # Data files
 │   └── points.csv          # Contains the point data
@@ -23,7 +60,7 @@ Before starting, make sure that you have installed the following dependencies:
 - **run_lab2.py** was not written in OOP since wrapping the execution steps in an artificial class will only introduce unnecessary complexity (over-engineering) without delivering any OOP benefits like code reusability.
 - **test_spatial.py** is empty since no unit testing was done in this lab exercise.
 
-## Reflections
+# Reflections
 ### 1. Object vs Geometry
 #### *How did modeling points as objects change the way you thought about the data compared to treating them as rows in a table?*
 

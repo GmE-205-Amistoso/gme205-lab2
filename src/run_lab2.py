@@ -7,8 +7,8 @@ from spatial import PointSet
 # ---------------------------------------------------------------------------
 # File Paths
 # ---------------------------------------------------------------------------
-DATA_PATH = "../data/points.csv"
-OUTPUT_DIR = "../output"
+DATA_PATH = "data/points.csv"
+OUTPUT_DIR = "output"
 SUMMARY_PATH = os.path.join(OUTPUT_DIR, "lab2_report.json")
 PLOT_PATH = os.path.join(OUTPUT_DIR, "lab2_preview.png")
 
