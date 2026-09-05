@@ -57,7 +57,7 @@ python3 src/run_lab2.py
 └── requirements.txt        # List of dependencies
 ```
 #### Notes on files:
-- **run_lab2.py** was not written in OOP since wrapping the execution steps in an artificial class will only introduce unnecessary complexity (over-engineering) without delivering any OOP benefits like code reusability.
+- **run_lab2.py** was not written in classes and methods since wrapping the execution steps / orchestrator / entry point in an artificial class will only introduce unnecessary complexity (over-engineering) without delivering any OOP benefits like code reusability.
 - **test_spatial.py** is empty since no unit testing was done in this lab exercise.
 
 # Reflections
